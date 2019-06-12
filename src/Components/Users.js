@@ -2,11 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import {Card, CardGroup, CardHeader, Col} from "reactstrap";
 import Widget02 from "../views/Widgets/Widget02";
-import Container from "reactstrap/es/Container";
+import Spinner from "reactstrap/es/Spinner";
 
 export default class UserList extends React.Component {
   state = {
-    users: []
+    users: [],
+    loading: true
+
   };
 
   componentDidMount() {
@@ -19,11 +21,21 @@ export default class UserList extends React.Component {
     })
       .then(res => {
         const users = res.data;
-        this.setState({users});
+        this.setState({users,loading: false});
       });
   };
 
   render() {
+    if (this.state.loading) {
+      return (
+        <Col sm={6} xs={12} lg={5}>
+          <Card>
+            <CardHeader><Spinner size={6}/>Medarbejdere</CardHeader>
+
+          </Card>
+        </Col>
+      )
+    } else {
     return (
       <Col sm={6} xs={12} lg={5}>
         <Card>
@@ -53,7 +65,7 @@ export default class UserList extends React.Component {
                 <CardGroup>
                   <Widget02 icon="fa fa-user-o" color={color} header={`${item.firstName + " " + item.lastName}`}
                             value="25"
-                  mainText={item.presence.statusName}>New Clients</Widget02>
+                            mainText={item.presence.statusName}>New Clients</Widget02>
                 </CardGroup>
               );
             })
@@ -61,5 +73,7 @@ export default class UserList extends React.Component {
         </Card>
       </Col>
     )
+    }
+
   };
 }

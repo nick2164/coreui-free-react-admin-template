@@ -2,10 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import {Card, CardGroup, CardHeader, Col} from "reactstrap";
 import Widget02 from "../views/Widgets/Widget02";
+import Spinner from "reactstrap/es/Spinner";
 
 export default class Queues extends React.Component {
   state = {
-    queues: []
+    queues: [],
+    loading: true
   };
 
   componentDidMount() {
@@ -18,11 +20,21 @@ export default class Queues extends React.Component {
     })
       .then(res => {
         const queues = res.data;
-        this.setState({queues});
+        this.setState({queues,loading: false});
       });
   };
 
   render() {
+    if (this.state.loading) {
+      return (
+        <Col sm={6} xs={12} lg={5}>
+          <Card className={Card}>
+            <CardHeader><i className="fa fa-users fa-lg"/>Køer</CardHeader>
+            <Spinner/>
+          </Card>
+        </Col>
+      )
+    } else {
     return (
       <Col sm={6} xs={12} lg={5}>
         <Card className={Card}>
@@ -53,5 +65,7 @@ export default class Queues extends React.Component {
         </Card>
       </Col>
     )
+    }
+
   };
 }
