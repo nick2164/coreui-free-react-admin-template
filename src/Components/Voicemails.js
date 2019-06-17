@@ -1,11 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import {Card, CardHeader, Col, Table} from "reactstrap";
 import CardBody from "reactstrap/es/CardBody";
 import {ScaleLoader} from "react-spinners";
-import ReactHowler from 'react-howler';
 import Button from "reactstrap/es/Button";
-import base64 from "base-64/base64";
+import {getVoicemailBoxes, getVoicemailFolder} from "../libraries/voicemails";
 
 export default class Voicemails extends React.Component {
   state = {
@@ -123,34 +121,4 @@ export default class Voicemails extends React.Component {
     }
 
   };
-}
-
-function getVoicemailBoxes() {
-  return axios.get(`https://api.everconnect.dk/manager/v1/voicemailBoxes`, {
-    headers: {
-      'X-Token': 'papa',
-      'Content-Type': 'application/json'
-    }, data: {}
-
-  })
-}
-
-function getVoicemailFolder(voicemailBox, voicemailFolder) {
-  return axios.get(`https://api.everconnect.dk/manager/v1/voicemailBox/${voicemailBox}/${voicemailFolder}`, {
-    headers: {
-      'X-Token': 'papa',
-      'Content-Type': 'application/json'
-    }, data: {}
-
-  })
-}
-
-function getVoicemailWAV(voicemailBox, voicemailFolder, voicemailID) {
-  return axios.get(`https://api.everconnect.dk/manager/v1/voicemailBox/${voicemailBox}/${voicemailFolder}/${voicemailID}`, {
-    headers: {
-      'X-Token': 'papa',
-      'Content-Type': 'audio/wav'
-    }, data: {}
-
-  })
 }

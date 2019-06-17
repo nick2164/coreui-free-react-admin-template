@@ -1,10 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import {Card, CardHeader, Col} from "reactstrap";
-import Container from "reactstrap/es/Container";
 import {ScaleLoader} from "react-spinners";
 import CardBody from "reactstrap/es/CardBody";
 import Switch from "react-switch";
+import {getSwitches, patchSwitch} from "../libraries/switches";
 
 export default class Switches extends React.Component {
   state = {
@@ -16,7 +15,7 @@ export default class Switches extends React.Component {
   button;
 
   handleChange(checked) {
-    this.setState({ checked });
+    this.setState({checked});
   }
 
   componentDidMount() {
@@ -30,7 +29,7 @@ export default class Switches extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Col sm={6} xs={12} lg={2}>
+        <Col sm={12} xs={12} lg={12}>
           <Card>
             <CardHeader><i className="fa fa-exchange fa-lg"/>Omskiftere</CardHeader>
             <CardBody><ScaleLoader height={12} width={2}/></CardBody>
@@ -39,7 +38,7 @@ export default class Switches extends React.Component {
       )
     } else {
       return (
-        <Col sm={6} xs={12} lg={2}>
+        <Col sm={12} xs={12} lg={12}>
           <Card>
             <CardHeader><i className="fa fa-exchange fa-lg"/>Omskiftere</CardHeader>
             {
@@ -91,37 +90,3 @@ export default class Switches extends React.Component {
 }
 
 
-
-function getSwitches() {
-  return axios.get(`https://api.everconnect.dk/manager/v1/switches`, {
-    headers: {
-      'X-Token': 'papa',
-      'Content-Type': 'application/json'
-    }, data: {}
-  })
-}
-
-function getSwitch(switchID) {
-  return axios.get(`https://api.everconnect.dk/manager/v1/switch/` + switchID, {
-    headers: {
-      'X-Token': 'papa',
-      'Content-Type': 'application/json'
-    }, data: {}
-  })
-}
-
-function patchSwitch(switchID, active) {
-  axios.patch(`https://api.everconnect.dk/manager/v1/switch/` + switchID, {
-    headers: {
-      'X-Token': 'papa',
-      'Content-Type': 'application/json'
-    }, data: {
-      active
-    }
-  }).then(value => {
-    getSwitch(switchID).then(value1 => {
-      const queues = value1.data;
-      this.setState({queues, loading: false});
-    })
-  })
-}
