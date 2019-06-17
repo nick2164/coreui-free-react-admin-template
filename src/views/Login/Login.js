@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -26,7 +27,7 @@ class Login extends Component {
 
   useFunction = (mainNumber, username, password) => {
 
-    this.setState({buttonLogin: 'Loading...'})
+    this.setState({buttonLogin: 'Loading...', alert: null})
 
     validateLogin(mainNumber, username, password).then(res => {
         console.log('Before')
@@ -36,7 +37,10 @@ class Login extends Component {
             color='primary'
             className='px-4'
             onClick={() => this.useFunction('44408553', 'papa', 'abc123')}
-          >Login</Button>
+          >Login</Button>,
+          alert: <Alert color="warning">
+            Ingen forbindelse til evercall ApS - Prøv igen senere
+          </Alert>
         })
       }
     );
@@ -44,8 +48,13 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="app flex-row align-items-center">
+      <div className="app flex-row align-items-center animated fadeIn">
         <Container>
+          <Row className="justify-content-center">
+            <Col md="5">
+              {this.state.alert}
+            </Col>
+          </Row>
           <Row className="justify-content-center">
             <Col md="5">
               <CardGroup>

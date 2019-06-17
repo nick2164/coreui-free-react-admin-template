@@ -22,6 +22,8 @@ export default class managerAPI {
       request['data'] = dataInput;
     }
 
+    request.timeout = 5000;
+
     console.log(request);
 
     return request;
