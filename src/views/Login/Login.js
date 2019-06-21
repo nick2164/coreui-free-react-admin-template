@@ -7,13 +7,13 @@ import {
   CardGroup,
   Col,
   Container,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
   Row
 } from 'reactstrap';
 import authentication from "../../libraries/authentication";
+import Redirect from "react-router-dom/es/Redirect";
 
 class Login extends Component {
 
@@ -21,22 +21,42 @@ class Login extends Component {
     buttonLogin: <Button
       color='primary'
       className='px-4'
-      onClick={() => this.useFunction(44408553, 'papa', 'abc112')}
+      onClick={() => this.loginHandler()}
     >Login</Button>,
+    redirect: false,
+    mainNumber: '',
+    username: '',
+    password: '',
   };
 
-  useFunction = (mainNumber, username, password) => {
+  setUsername(event) {
+    this.setState({username: event.target.value});
+  }
 
-    this.setState({buttonLogin: 'Loading...', alert: null})
+  setMainNumber(event) {
+    this.setState({mainNumber: event.target.value});
+  }
 
-    validateLogin(mainNumber, username, password).then(res => {
-        console.log('Before')
+  setPassword(event) {
+    this.setState({password: event.target.value});
+  }
+
+  loginHandler = () => {
+
+    validateLogin(this.state.mainNumber, this.state.username, this.state.password).then(res => {
+
+        this.setState({buttonLogin: 'Loading...', alert: null});
+
+        localStorage.setItem('token', res.data.token);
+        this.setState({redirect: true});
+
+
       }, res => {
         this.setState({
           buttonLogin: <Button
             color='primary'
             className='px-4'
-            onClick={() => this.useFunction('44408553', 'papa', 'abc123')}
+            onClick={() => this.loginHandler()}
           >Login</Button>,
           alert: <Alert color="warning">
             Ingen forbindelse til evercall ApS - Prøv igen senere
@@ -46,11 +66,18 @@ class Login extends Component {
     );
   };
 
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/target'/>
+    }
+  };
+
   render() {
     return (
       <div className="app flex-row align-items-center animated fadeIn">
         <Container>
-          <Row className="justify-content-center">
+          {this.renderRedirect()}
+          <Row className="jusInputtify-content-center">
             <Col md="5">
               {this.state.alert}
             </Col>
@@ -60,7 +87,7 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <form>
+                    <form onSubmit={this.loginHandler}>
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -69,7 +96,9 @@ class Login extends Component {
                             <i className="icon-phone"/>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Hovednummer" autoComplete="Hovednummer"/>
+                        <input type="text" className={'form-control'} placeholder="Hovednummer"
+                               value={this.state.mainNumber}
+                               autoComplete="Hovednummer" onChange={this.setMainNumber.bind(this)}/>
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
@@ -77,7 +106,9 @@ class Login extends Component {
                             <i className="icon-user"/>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Brugernavn" autoComplete="username"/>
+                        <input type="text" className={'form-control'} placeholder="Brugernavn" autoComplete="username"
+                               value={this.state.username}
+                               onChange={this.setUsername.bind(this)}/>
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -85,7 +116,9 @@ class Login extends Component {
                             <i className="icon-lock"/>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Adgangskode" autoComplete="current-password"/>
+                        <input type="password" className={'form-control'} placeholder="Adgangskode"
+                               value={this.state.password}
+                               autoComplete="current-password" onChange={this.setPassword.bind(this)}/>
                       </InputGroup>
                       <Row>
                         <Col xs="6">
@@ -100,6 +133,7 @@ class Login extends Component {
                 </Card>
               </CardGroup>
             </Col>
+
           </Row>
         </Container>
       </div>
@@ -108,7 +142,7 @@ class Login extends Component {
 }
 
 function validateLogin(mainNumber, username, password) {
-  return authentication.getToken(mainNumber, username, password)
+  return authentication.postToken(mainNumber, username, password)
 }
 
 export default Login;
