@@ -3,7 +3,7 @@ import {Card, CardHeader, Col, Table} from "reactstrap";
 import CardBody from "reactstrap/es/CardBody";
 import {ScaleLoader} from "react-spinners";
 import Button from "reactstrap/es/Button";
-import {getVoicemailBoxes, getVoicemailFolder} from "../libraries/voicemails";
+import {getVoicemailBoxes, getVoicemailFolder} from "../hooks/voicemails";
 
 export default class Voicemails extends React.Component {
   state = {

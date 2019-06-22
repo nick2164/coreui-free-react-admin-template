@@ -12,7 +12,7 @@ import {
   InputGroupText,
   Row
 } from 'reactstrap';
-import authentication from "../../libraries/authentication";
+import authentication from "../../hooks/authentication";
 import Redirect from "react-router-dom/es/Redirect";
 
 class Login extends Component {
