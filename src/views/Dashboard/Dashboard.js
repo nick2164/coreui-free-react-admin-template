@@ -33,7 +33,6 @@ class Dashboard extends Component {
 
     return (
       <Row>
-        {localStorage.getItem('token')}
         <UserList/>
         <Queues/>
         <Switches/>
