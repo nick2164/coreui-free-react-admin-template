@@ -1,13 +1,13 @@
-import axios from "axios";
-import managerAPI from "./mangerAPI";
+import {ManagerAPIPost} from "./mangerAPI";
 
-export default class authentication {
-  static getToken(mainNumber, username, password) {
-    return axios.get(managerAPI.URL + `/token`, managerAPI.setConfig(null, null, {
-        'X-MainNumber': mainNumber,
-        'X-Username': username,
-        'X-Password': password
-      })
-    )
+export class authentication {
+  static postToken(mainNumber, username, password) {
+
+    return ManagerAPIPost(`/token`, {
+      'X-MainNumber': mainNumber,
+      'X-Username': username,
+      'X-Password': password
+    }, {headers: {contentType: 'application/json'}});
+
   }
 }

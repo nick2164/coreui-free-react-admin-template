@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {Card, CardGroup, CardHeader, Col} from "reactstrap";
-import Widget02 from "../views/Widgets/Widget02";
+import Widget02 from "./CoreUI/Widgets/Widget02";
 import CardBody from "reactstrap/es/CardBody";
 import {ScaleLoader} from "react-spinners";
 

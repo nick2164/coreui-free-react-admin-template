@@ -1,10 +1,11 @@
-import axios from "axios";
-import managerAPI from "./mangerAPI";
-import {managerAPIGet} from "./managerAPIGet";
+import {ManagerAPIGet} from "./mangerAPI";
 
-export function getUsers(token) {
+export function getUsers(token,dependencies) {
 
-  managerAPIGet('');
+  return ManagerAPIGet(`/users`, {headers: {'X-Token': token}},dependencies)
+}
 
-  //  return axios.get(managerAPI.URL + `/users`, managerAPI.setConfig(token, active));
+export function getUser(token,userID,dependencies) {
+
+  return ManagerAPIGet(`/user/${userID}`, {headers: {'X-Token': token}},dependencies)
 }

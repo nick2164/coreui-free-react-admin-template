@@ -1,14 +1,13 @@
-import axios from "axios";
-import managerAPI from "./mangerAPI";
+import {ManagerAPIGet} from "./mangerAPI";
 
 export function getVoicemailBoxes(token) {
-  return axios.get(`https://api.everconnect.dk/manager/v1/voicemailBoxes`, managerAPI.setConfig(token, {}))
+  return ManagerAPIGet(`/voicemailBoxes`, {headers: {'X-Token': token, contentType: 'application/json'}})
 }
 
 export function getVoicemailFolder(token,voicemailBox, voicemailFolder) {
-  return axios.get(`https://api.everconnect.dk/manager/v1/voicemailBox/${voicemailBox}/${voicemailFolder}`, managerAPI.setConfig(token, {}))
+  return ManagerAPIGet(`/voicemailBox/${voicemailBox}/${voicemailFolder}`,  {headers: {'X-Token': token, contentType: 'application/json'}})
 }
 
 export function getVoicemailWAV(token,voicemailBox, voicemailFolder, voicemailID) {
-  return axios.get(`https://api.everconnect.dk/manager/v1/voicemailBox/${voicemailBox}/${voicemailFolder}/${voicemailID}`, managerAPI.setConfig(token, {}))
+  return ManagerAPIGet(`/voicemailBox/${voicemailBox}/${voicemailFolder}/${voicemailID}`,  {headers: {'X-Token': token, contentType: 'application/json'}})
 }

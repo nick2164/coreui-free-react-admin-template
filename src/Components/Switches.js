@@ -3,46 +3,30 @@ import {Card, CardHeader, Col} from "reactstrap";
 import {ScaleLoader} from "react-spinners";
 import CardBody from "reactstrap/es/CardBody";
 import Switch from "react-switch";
-import {getSwitches, patchSwitch} from "../libraries/switches";
+import {getSwitches, patchSwitch} from "../hooks/switches";
 
-export default class Switches extends React.Component {
-  state = {
-    queues: [],
-    loading: true,
-    checked: false
-  };
+const Switches = () => {
 
-  button;
+  const [isLoading, fetchedData] = getSwitches('papa',[]);
 
-  handleChange(checked) {
-    this.setState({checked});
-  }
+  const ViewLoading = (
+    <Col sm={12} xs={12} lg={12}>
+      <Card>
+        <CardHeader><i className="fa fa-exchange fa-lg"/>Omskiftere</CardHeader>
+        <CardBody><ScaleLoader height={12} width={2}/></CardBody>
+      </Card>
+    </Col>
+  );
 
-  componentDidMount() {
-
-    getSwitches().then(res => {
-      const queues = res.data;
-      this.setState({queues, loading: false});
-    });
-  };
-
-  render() {
-    if (this.state.loading) {
-      return (
-        <Col sm={12} xs={12} lg={12}>
-          <Card>
-            <CardHeader><i className="fa fa-exchange fa-lg"/>Omskiftere</CardHeader>
-            <CardBody><ScaleLoader height={12} width={2}/></CardBody>
-          </Card>
-        </Col>
-      )
-    } else {
-      return (
+  return (
+    <React.Fragment>
+      {isLoading ? (ViewLoading
+      ) : (
         <Col sm={12} xs={12} lg={12}>
           <Card>
             <CardHeader><i className="fa fa-exchange fa-lg"/>Omskiftere</CardHeader>
             {
-              this.state.queues.map(function (item) {
+              fetchedData.map(function (item) {
 
                 let button;
                 button = <Switch
@@ -74,9 +58,8 @@ export default class Switches extends React.Component {
                 />;
 
                 return (
-
-                  <div key={item.switchID}>
-                    <h1>{item.switchID}</h1>
+                  <div key={fetchedData.switchID}>
+                    <h1>{fetchedData.switchID}</h1>
                     {button}
                   </div>
                 );
@@ -84,9 +67,10 @@ export default class Switches extends React.Component {
             }
           </Card>
         </Col>
-      )
-    }
-  };
-}
+      )}
+    </React.Fragment>
+  )
 
+};
 
+export default Switches;

@@ -13,7 +13,7 @@ import {
   InputGroupText,
   Row
 } from 'reactstrap';
-import authentication from "../../libraries/authentication";
+import {authentication} from "../../hooks/authentication";
 
 class Login extends Component {
 
@@ -108,7 +108,7 @@ class Login extends Component {
 }
 
 function validateLogin(mainNumber, username, password) {
-  return authentication.getToken(mainNumber, username, password)
+  return authentication.postToken(mainNumber, username, password)
 }
 
 export default Login;

@@ -1,6 +1,6 @@
-import axios from "axios";
-import managerAPI from "./mangerAPI";
+import {ManagerAPIGet} from "./mangerAPI";
 
 export function getPhone(token, phoneNumber) {
-    return axios.get(managerAPI.URL + `/Phone/` + phoneNumber, managerAPI.setConfig(token, active));
+  return ManagerAPIGet(`/Phone/` + phoneNumber, {headers: {active,'X-Token': token, contentType: 'application/json'}})
+
 }
