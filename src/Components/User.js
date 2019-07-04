@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CardGroup} from "reactstrap";
 import Widget02 from "./CoreUI/Widgets/Widget02";
+import UserPhones from "./UserPhones";
 
 const User = props => {
 
@@ -26,8 +27,6 @@ const User = props => {
     }
   },[]);
 
-  console.log('Hello', props);
-
   return (
     <React.Fragment>
       {
@@ -35,9 +34,10 @@ const User = props => {
           <Widget02 icon="fa fa-user-o" color={color} header={`${props.user.firstName + " " + props.user.lastName}`}
                     value="25"
                     mainText={props.user.presence.statusName}>New Clients</Widget02>
-        </CardGroup>
 
+        </CardGroup>
       }
+      {props.user.phoneCount > 0?(<UserPhones user={props.user}/>) : (null)}
 
     </React.Fragment>
   )
