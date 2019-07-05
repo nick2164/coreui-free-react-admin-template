@@ -10,10 +10,10 @@ const UserPhones = props => {
     <React.fragment>
       {
         isLoading ? (
-          fetchedData.map((phone) => {
-            return <Widget02 mainText={phone.phoneNumber} variant="2"/>
-          })
-        ) : (null)
+          null
+        ) : (fetchedData.map((phone) => {
+          return <Widget02 mainText={phone.phoneNumber} variant="2"/>
+        }))
       }
     </React.fragment>
   )

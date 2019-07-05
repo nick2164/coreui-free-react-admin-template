@@ -37,7 +37,6 @@ const User = props => {
 
         </CardGroup>
       }
-      {props.user.phoneCount > 0?(<UserPhones user={props.user}/>) : (null)}
 
     </React.Fragment>
   )

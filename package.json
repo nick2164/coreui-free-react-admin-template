@@ -40,6 +40,7 @@
     "react-switch": "^5.0.0",
     "react-test-renderer": "^16.8.6",
     "reactstrap": "^7.1.0",
+    "semantic-ui-react": "^0.87.2",
     "simple-line-icons": "^2.4.1"
   },
   "devDependencies": {
