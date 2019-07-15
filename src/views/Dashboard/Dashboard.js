@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import UserList from "../../Components/UserList";
 import Row from "reactstrap/es/Row";
-import Queues from "../../Components/Queues";
+// import Queues from "../../Components/Queues";
 import Switches from "../../Components/Switches";
 
 class Dashboard extends Component {
@@ -33,7 +33,7 @@ class Dashboard extends Component {
 
     return (
       <Row>
-        <UserList/>
+        <UserList sm={12} xs={12} lg={8} xl={9} md={9}/>
         {/*<Queues/>*/}
         <Switches/>
       </Row>

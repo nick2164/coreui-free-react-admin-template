@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react';import "./Widget02.css";
+
 import PropTypes from 'prop-types';
 import { Card, CardBody, CardFooter } from 'reactstrap';
 import classNames from 'classnames';
@@ -59,7 +60,7 @@ class Widget02 extends Component {
     };
 
     return (
-      <Card>
+      <Card className={'no-border'}>
         <CardBody className={card.classes} {...attributes}>
           {blockIcon(card.icon)}
           <div className={lead.classes}>{header}</div>

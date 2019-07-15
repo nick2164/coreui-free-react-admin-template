@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {CardGroup} from "reactstrap";
 import Widget02 from "./CoreUI/Widgets/Widget02";
-import UserPhones from "./UserPhones";
 
 const User = props => {
 
@@ -30,7 +29,7 @@ const User = props => {
   return (
     <React.Fragment>
       {
-        <CardGroup key={props.user.userID}>
+        <CardGroup key={props.key}>
           <Widget02 icon="fa fa-user-o" color={color} header={`${props.user.firstName + " " + props.user.lastName}`}
                     value="25"
                     mainText={props.user.presence.statusName}>New Clients</Widget02>
